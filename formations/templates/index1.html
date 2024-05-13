@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/Logo.jpg' %}">
+    <title>Sihhathech - Formations Professionnelles en Santé</title>
+</head>
+<body>
+    <!--===== HEADER =====-->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a title="Logo" href="#" class="nav_logo">
+                <img max-width="100%" height="auto" class="my-logo" id="my-logo" src="{% static 'img/Logo.jpg' %}" title="Logo" alt="AFIND">
+                AFIND Formation 
+            </a>
+            <div class="nav_menu" id="nav-menu">
+                <ul class="nav_list"> 
+                    <li class="nav_item"><a href="#home" class="nav_link active">Accueil</a></li>
+                    <li class="nav_item"><a href="#about" class="nav_link">À propos</a></li>
+                    <li class="nav_item"><a href="#formations" class="nav_link">Formations</a></li>
+                    <li class="nav_item"><a href="#contact" class="nav_link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="nav_toggle">
+                <i class="bx bx-menu" id="nav-toggle" onclick="hideMenu()"></i>
+            </div>
+        </nav>
+    </header>
+    <!--===== MAIN =====-->
+    <main class="main">
+        <!--===== HOME =====-->
+        <section class="home section" id="home">
+            <div class="container">
+                <h1 class="home_title">AFIND Formation </h1>
+                <h2>Formez-vous avec les experts en santé</h2>
+                <p class="text">Découvrez nos formations spécialisées pour professionnels de la santé.</p>
+                <a href="#formations" class="button">Explorez nos Formations</a>
+                <a href="#contact" class="button btn">Contact</a>
+            </div>
+        </section>
+        <!--===== ABOUT =====-->
+        <section class="about section" id="about">
+            <h2 class="section-title">À propos du <span class="subtitle">Groupe AFIND</span></h2>
+            <div class="container">
+                <p class="text">
+                    AFIND Formation, Centre de Coaching et de Perfectionnement dans le Médical destiné aux professionnels de la Santé.
+                    <br>
+                    Le centre AFIND FORMATION, Pionnier dans le Perfectionnement et le Coaching des Professionnels 
+                    de Santé 👨‍⚕  dans le domaine Médical 🩺 et Paramédical depuis 2018.
+                    <br>
+                    Le Groupe AFIND « Algerian Foundation for Innovation and Development » est une entreprise 
+                    qui vise à accompagner professionnellement les divers acteurs de l’écosystème de la Santé 
+                    le long de leur transformation digitale.
+                </p>
+                <div class="div-video">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/iTfnWmhmGa4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </section>
+        <!--===== FORMATIONS =====-->
+        <section class="formations section" id="formations">
+            <h2 class="section-title">Nos <span class="subtitle">Formations</span></h2>
+            <div class="container">
+                <article class="formations">
+                    <div class="formations-img">
+                        <img src="{% static 'img/formation_1.jpg' %}" alt="formations">
+                    </div>
+                    <h4 class="subtitle">Formation en Nursing</h4>
+                    <p>Cette formation vous permettra de...</p>
+                    <a href="#" class="button">plus de détails  <i class='bx bx-right-arrow-alt'></i></a>
+                </article>
+                <article class="formations">
+                    <div class="formations-img">
+                        <img src="{% static 'img/formation_2.jpg' %}" alt="formations">
+                    </div>
+                    <h4 class="subtitle">Techniques Avancées de Chirurgie</h4>
+                    <p>Approfondissez vos connaissances en...</p>
+                    <a href="#" class="button">plus de détails  <i class='bx bx-right-arrow-alt'></i></a>
+                </article>
+                <article class="formations">
+                    <div class="formations-img">
+                        <img src="{% static 'img/formation_3.jpg' %}" alt="formations">
+                    </div>
+                    <h4 class="subtitle">Formation en Nursing</h4>
+                    <p>Cette formation vous permettra de...</p>
+                    <a href="#" class="button">plus de détails  <i class='bx bx-right-arrow-alt'></i></a>
+                </article>
+                <article class="formations">
+                    <div class="formations-img">
+                        <img src="{% static 'img/formation_4.jpg' %}" alt="formations">
+                    </div>
+                    <h4 class="subtitle">Techniques Avancées de Chirurgie</h4>
+                    <p>Approfondissez vos connaissances en...</p>
+                    <a href="#" class="button">plus de détails  <i class='bx bx-right-arrow-alt'></i></a>
+                </article>
+                <article class="formations">
+                    <div class="formations-img">
+                        <img src="{% static 'img/formation_5.jpg' %}" alt="formations">
+                    </div>
+                    <h4 class="subtitle">Techniques Avancées de Chirurgie</h4>
+                    <p>Approfondissez vos connaissances en...</p>
+                    <a href="#" class="button">plus de détails  <i class='bx bx-right-arrow-alt'></i></a>
+                </article>
+            </div>
+        </section>
+        <!--===== CONTACT =====-->
+        <section class="contact section" id="contact">
+            <h2 class="section-title">Contactez <span class="subtitle">Nous</span></h2>
+            <div class="container">
+                <div class="contact-info">
+                    <h3>Informations de contact</h3>
+                    <p><i class="bx bx-phone"></i>(+213) 779 92 45 56</p>
+                    <p><i class="bx bx-envelope"></i>afindformation@gmail.com</p>
+                    <p><i class="bx bx-map"></i>Cité Ain Abdellah Coopérative, Résidence Rocher Noir 2, Bureau N°10, Boumerdes - ALGERIE</p>
+                    <div class="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3196.6555517044035!2d3.4510607765624575!3d36.75483811095225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e68f78a47423d%3A0x1ccf933b681e8bdd!2sSIHHATECH!5e0!3m2!1sfr!2sdz!4v1715184587659!5m2!1sfr!2sdz" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <form action="#" method="POST" class="contact-form">
+                    {% csrf_token %}
+                    <label for="name">Nom:</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom" required>
+        
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Votre email" required>
+        
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+        
+                    <button type="submit" class="button">Envoyer le message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!--===== FOOTER =====-->
+    <footer class="footer">
+        <div class="container">
+            <ul class="footer_list"> 
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#formations">Formations</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="footer_social">
+                <h4>SUIVEZ-NOUS :</h4>
+                <ul class="footer_list">
+                    <li><a target="_blank" href=""><i class="bx bxl-facebook"></i></a></li>
+                    <li><a target="_blank" href=""><i class="bx bxl-instagram"></i></a></li>
+                    <li><a target="_blank" href=""><i class="bx bxl-youtube"></i></a></li>
+                    <li><a target="_blank" href=""><i class="bx bxl-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <p>Copyright &#169; 2024, tous droits réservés</p>
+    </footer>
+    <!--===== SCRIPT JS =====-->
+    <script type="text/js" src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
+

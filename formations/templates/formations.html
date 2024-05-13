@@ -1,0 +1,15 @@
+<section class="formations section" id="formations">
+    <h2 class="section-title">Nos <span class="subtitle">Formations</span></h2>
+    <div class="container">
+    {% for formation in formations %}
+        <article class="formations">
+            <div class="formations-img">
+                <a href="{% url 'formation' formation.id %}"><img src="{{ formation.image.url }}" alt="formation"></a>
+            </div>
+            <h4 class="subtitle">{{ formation.title }}</h4>
+            <p><span class="detail_label" style="float: left;">{{ formation.price }} DZD</span> <span  style="float: right;"class="detail_deadline">{{ formation.enrollment_deadline }}</span></p>
+            <a href="{% url 'formation' formation.id %}" class="button">plus de détails  <i class='bx bx-right-arrow-alt'></i></a>
+        </article>
+    {% endfor %}
+</div>
+</section>

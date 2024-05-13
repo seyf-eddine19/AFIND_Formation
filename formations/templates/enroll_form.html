@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}AFIND Formation - {{ formation.title }}{% endblock %}
+<!--===== MAIN =====-->
+{% block content %}
+<!--===== ENROLL FORMATION =====-->
+<section class="formation section" id="">
+    <div class="container">
+        <h3 class="section-title">{{ formation.title }}</h3>
+        <form method="post" role="form">
+            {% csrf_token %}
+            <!-- <label for="id_formation">Formation:</label><br>
+            <select id="id_formation" name="formation">
+                {% for formation in formations %}
+                <option value="{{ formation.id }}">{{ formation.title }}</option>
+                {% endfor %}
+            </select><br><br> -->
+
+            <label for="id_full_name">Full Name:</label><br>
+            <input type="text" id="id_full_name" name="full_name" required><br><br>
+
+            <label for="id_email">Email:</label><br>
+            <input type="email" id="id_email" name="email" required><br><br>
+
+            <label for="id_phone">Phone:</label><br>
+            <input type="tel" id="id_phone" name="phone"><br><br>
+
+            <label for="id_address">Address:</label><br>
+            <textarea id="id_address" name="address"></textarea><br><br>
+
+            <label for="id_department">Department:</label><br>
+            <input type="text" id="id_department" name="department" required><br><br>
+
+            <label for="id_academic_level">Academic Level:</label><br>
+            <input type="text" id="id_academic_level" name="academic_level" required><br><br>
+            <!-- 
+            <label for="id_status">Status:</label><br>
+            <input type="text" id="id_status" name="status" required><br><br> 
+
+            <label for="id_enrollment_date">Enrollment Date:</label><br>
+            <input type="date" id="id_enrollment_date" name="enrollment_date" required><br><br>
+            -->
+            
+            <!-- <button type="submit">Enroll</button> -->
+            <button class="button" style="float: inline-end;"> S'inscrire </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+

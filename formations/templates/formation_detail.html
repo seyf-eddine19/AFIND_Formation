@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}AFIND Formation - {{ formation.title }}{% endblock %}
+<!--===== MAIN =====-->
+{% load static %}
+{% block content %}
+<!--===== FORMATION =====-->
+<section class="formation section" id="">
+    <div class="container">
+       <h3 class="section-title">{{ formation.title }}</h3>
+        <div class="desc_container">
+            <div class="images-slider">
+                <div class="imgSlides">
+                    <img src="{{ formation.image.url }}" alt="{{ formation.title }}">
+                </div>
+                {% for img in formation_images %}
+                    <div class="imgSlides">
+                        <!-- <div class="numbertext">1 / 6</div> -->
+                        <img src="{{ img.image.url }}" alt="{{ formation.title }}">
+                    </div>
+                {% endfor %}
+                <!-- Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10095;</a>
+                <a class="next" onclick="plusSlides(1)">&#10094;</a>
+                <!-- Thumbnail images -->
+                <div class="row">
+                    <div class="column">
+                        <img class="demo cursor" src="{{ formation.image.url }}" alt="{{ formation.title }}" style="width:100%" onclick="currentSlide(1)">
+                    </div>
+                    {% for img in formation_images %}
+                        <div class="column">
+                            <img class="demo cursor" src="{{ img.image.url }}" alt="{{ formation.title }}" style="width:100%" onclick="currentSlide({{ forloop.counter|add:1 }})">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="detial_container container">
+                <p class="detail_paragraph detail_price"><span class="detail_label">Prix :</span> {{ formation.price }} DZD</p>
+                <p class="detail_paragraph detail_deadline"><span class="detail_label">Date limite d'inscription :</span> {{ formation.enrollment_deadline }}</p>
+                <p class="detail_paragraph"><span class="detail_label">Instructeur :</span> {{ formation.instructor }}</p>
+                <p class="detail_paragraph"><span class="detail_label">Département :</span> {{ formation.department }}</p>
+            </div>
+        </div>
+        <br>
+        <pre>{{ formation.description }}</pre>
+        <a href="{% url 'enroll' formation.id %}" class="button floating-btn"> S'inscrire à la formation  <i class='bx bx-right-arrow-alt'></i></a>
+    </div>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+        
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+        
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("imgSlides");
+            let dots = document.getElementsByClassName("demo");
+            console.log(dots)
+            console.log(slides)
+            console.log(i, n)
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            console.log(i, slideIndex)
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+        }
+    </script>
+</section>
+{% endblock %}
+
