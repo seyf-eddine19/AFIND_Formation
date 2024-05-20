@@ -6,7 +6,18 @@
 <!--===== FORMATION =====-->
 <section class="formation section" id="">
     <div class="container">
-       <h3 class="section-title">{{ formation.title }}</h3>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {% if message.tags == 'success' %}
+                        <i class='bx bx-check-circle alert-icon'></i>
+                    {% elif message.tags == 'error' %}
+                        <i class='bx bx-error-circle alert-icon'></i>
+                    {% endif %}
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <div class="desc_container">
             <div class="images-slider">
                 <div class="imgSlides">
@@ -33,16 +44,34 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="detial_container container">
-                <p class="detail_paragraph detail_price"><span class="detail_label">Prix :</span> {{ formation.price }} DZD</p>
-                <p class="detail_paragraph detail_deadline"><span class="detail_label">Date limite d'inscription :</span> {{ formation.enrollment_deadline }}</p>
-                <p class="detail_paragraph"><span class="detail_label">Instructeur :</span> {{ formation.instructor }}</p>
-                <p class="detail_paragraph"><span class="detail_label">Département :</span> {{ formation.department }}</p>
+            <div class="detial_container">
+                <h3 class="title">{{ formation.title }}</h3>
+                <!-- Promo Sign -->
+                {% if formation.discount > 0 %}
+                <span class="promo-sign">Promo</span>
+                <p class="detail_label"><span class="discount">-{{ formation.discount }}%</span> <span class="discounted_price">{{ formation.discounted_price }}DA</span> <span class="detail_price">{{ formation.price }}DA</span></p>
+                {% else %}
+                <p class="detail_label"><span class="discounted_price" style="margin: auto;">{{ formation.price }}DA</span></p>
+                {% endif %}
+                <p class="detail_label">Durée :<span class=""> 10 mai - 15 mai 2024</span></p>
+                <p class="detail_label">Instructeur :<span class=""> {{ formation.instructor }}</span></p>
+                <p class="detail_label">Département :<span class=""> {{ formation.department }}</span></p>
+                <p class="detail_label">Places restantes :<span class=""> Seulement {{ formation.places_left }} places restantes!</span></p>
+                <p class="detail_label">Lieu :<span class=""> {{ formation.place }}</span> <span  style="float: right;">Deadline :<span class="detail_deadline"> {{ formation.enrollment_deadline }}</span></span></p>
+                <!--===== ENROLL FORM =====-->
+                {% include "enroll_form.html" %}
             </div>
         </div>
         <br>
         <pre>{{ formation.description }}</pre>
-        <a href="{% url 'enroll' formation.id %}" class="button floating-btn"> S'inscrire à la formation  <i class='bx bx-right-arrow-alt'></i></a>
+        {% if formation.map_url %}
+        <div class="map">
+            <iframe src="{{ formation.map_url }}" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        {% endif %}
+        <!--===== MORE FORMATIONS =====-->
+        {% include "formations_section.html" %}
+        <button class="button floating-btn" onclick="submitForm()">s'inscrire</button>
     </div>
     <script>
         let slideIndex = 1;
@@ -76,6 +105,15 @@
             console.log(i, slideIndex)
             slides[slideIndex-1].style.display = "block";
             dots[slideIndex-1].className += " active";
+        }
+        
+        function submitForm() {
+            var form = document.getElementById("enrollForm");
+            if (form.checkValidity()) {
+                form.submit();
+            } else {
+                form.reportValidity();
+            }
         }
     </script>
 </section>

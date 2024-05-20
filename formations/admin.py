@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Formation, Enrollment, FormationImage
+from .models import Formation, Enrollment, FormationImage, ContactMessage
 from .admin_actions import export_as_csv
 
 class FormationImageInline(admin.TabularInline):
     model = FormationImage
-    extra = 1  # Number of empty form rows to show
+    extra = 1
+
 
 @admin.register(Formation)
 class FormationAdmin(admin.ModelAdmin):
@@ -14,22 +15,6 @@ class FormationAdmin(admin.ModelAdmin):
     
     inlines = [FormationImageInline]
 
-    # list_display = ('title', 'get_instructor_name', 'department')
-    # search_fields = ('title', 'department')
-    # list_filter = ('department', 'instructor__full_name')
-    
-    # inlines = [FormationImageInline]
-
-
-    # def get_instructor_name(self, obj):
-    #     return f"{obj.instructor.full_name}"
-    # get_instructor_name.short_description = 'Instructor'
-# admin.site.register(Formation, FormationAdmin)
-    
-# @admin.register(Instructor)
-# class InstructorAdmin(admin.ModelAdmin):
-#     list_display = ('full_name', 'phone', 'specialization')
-#     search_fields = ('full_name', 'phone', 'specialization')
     
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):
@@ -41,3 +26,8 @@ class EnrollmentAdmin(admin.ModelAdmin):
     def get_formation_name(self, obj):
         return f"{obj.formation.title}"
     get_formation_name.short_description = 'formation'
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'subject', 'created_at')

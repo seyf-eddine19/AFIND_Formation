@@ -1,22 +1,43 @@
+{% load static %}
 <footer class="footer">
+    <hr>
     <div class="container">
-        <ul class="footer_list"> 
-            <li><a href="/#home">Accueil</a></li>
-            <li><a href="/#about">À propos</a></li>
-            <li><a href="/#formations">Formations</a></li>
-            <li><a href="/#contact">Contact</a></li>
-        </ul>
+        <div class="">
+            <ul class="footer_list"> 
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/a-propos">À propos</a></li>
+                <li><a href="/formations">Formations</a></li>
+            </ul>
+        </div>
+        <div class="">
+            <h4>AIDE & SUPPORT</h4>
+            <ul class="footer_list"> 
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/faq">FAQ</a>
+            </ul>
+        </div>
         <div class="footer_social">
-            <h4>SUIVEZ-NOUS :</h4>
+            <a title="Logo" href="/" class="nav_logo">
+                <img max-width="100%" height="auto" class="my-logo" id="my-logo" src="{% static 'img/Logo.png' %}" title="Logo" alt="AFIND">
+                <!-- AFIND Formation  -->
+            </a>
+            <h4>SUIVEZ-NOUS</h4>
             <ul class="footer_list">
                 <li><a target="_blank" href="https://www.facebook.com/AFINDFormation"><i class="bx bxl-facebook"></i></a></li>
                 <li><a target="_blank" href="https://www.instagram.com/afindformation/"><i class="bx bxl-instagram"></i></a></li>
-                <!-- <li><a target="_blank" href=""><i class="bx bxl-youtube"></i></a></li> -->
                 <li><a target="_blank" href="https://www.linkedin.com/feed/update/urn:li:activity:7034534780243206144"><i class="bx bxl-linkedin"></i></a></li>
             </ul>
         </div>
     </div>
     <hr>
-    <p>Copyright &#169; 2024, tous droits réservés</p>
+    <div>
+        <div class="container">
+            <p>Copyright &#169; 2024, tous droits réservés</p>
+            <ul class="footer_ul"> 
+                <li><a href="/politique-de-confidentialite">Politique de confidentialité |</a></li>
+                <li><a href="/conditions-generales-d-utilisation">Conditions générales d’utilisation</a></li>
+            </ul>
+        </div>
+    </div>
 </footer>
 

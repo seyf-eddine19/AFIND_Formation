@@ -1,18 +1,8 @@
-<section class="about section" id="about">
-    <h2 class="section-title">À propos du <span class="subtitle">Groupe AFIND</span></h2>
-    <div class="container">
-        <p class="text">
-            AFIND Formation, Centre de Coaching et de Perfectionnement dans le Médical destiné aux professionnels de la Santé.
-            <br>
-            Le centre AFIND FORMATION, Pionnier dans le Perfectionnement et le Coaching des Professionnels 
-            de Santé 👨‍⚕  dans le domaine Médical 🩺 et Paramédical depuis 2018.
-            <br>
-            Le Groupe AFIND « Algerian Foundation for Innovation and Development » est une entreprise 
-            qui vise à accompagner professionnellement les divers acteurs de l’écosystème de la Santé 
-            le long de leur transformation digitale.
-        </p>
-        <div class="div-video">
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/iTfnWmhmGa4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-        </div>
-    </div>
-</section>
+{% extends "base.html" %}
+{% block title %}AFIND Formation{% endblock %}
+{% block content %}
+    <!--===== HOME =====-->
+    {% include "home.html" %}
+    <!--===== ABOUT =====-->
+    {% include "about_section.html" %}
+{% endblock %}

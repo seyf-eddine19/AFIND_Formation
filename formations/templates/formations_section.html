@@ -1,0 +1,21 @@
+<section class="formations section" id="formations">
+    <h2 class="section-title">Nos <span class="subtitle">Formations</span></h2>
+    <div class="container">
+    {% for formation in formations %}
+        <article class="formations">
+            <div class="formations-img">
+                <a href="{% url 'formation' formation.id %}"><img src="{{ formation.image.url }}" alt="formation"></a>
+            </div>
+            <h4 class="subtitle">{{ formation.title }}</h4>
+            {% if formation.discount > 0 %}
+            <span class="promo-bar">Promo -{{ formation.discount }}%</span>
+            <p class="detail_label"><span class="discounted_price" style="margin: auto;">{{ formation.discounted_price }}DA</span> <span class="detail_price">{{ formation.price }}DA</span></p>
+            {% else %}
+            <p class="detail_label"><span class="discounted_price" style="margin: auto;">{{ formation.price }}DA</span></p>
+            {% endif %}
+            <p class="detail_label">Lieu :<span class=""> {{ formation.place }}</span> <span  style="float: right;">Deadline :<span class="detail_deadline"> {{ formation.enrollment_deadline }}</span></span></p>
+            <a href="{% url 'formation' formation.id %}" class="button">s’inscrire maintenant <i class='bx bx-right-arrow-alt'></i></a>
+        </article>
+    {% endfor %}
+</div>
+</section>
