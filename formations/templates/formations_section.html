@@ -1,6 +1,7 @@
 <section class="formations section" id="formations">
     <h2 class="section-title">Nos <span class="subtitle">Formations</span></h2>
     <div class="container">
+    {% if formations %}
     {% for formation in formations %}
         <article class="formations">
             <div class="formations-img">
@@ -17,5 +18,8 @@
             <a href="{% url 'formation' formation.id %}" class="button">s’inscrire maintenant <i class='bx bx-right-arrow-alt'></i></a>
         </article>
     {% endfor %}
+    {% else %}
+        <p>Aucune formation trouvée.</p>
+    {% endif %}
 </div>
 </section>

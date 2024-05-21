@@ -2,12 +2,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.utils import timezone
+from django.db.models import Q 
 from .models import Formation, Enrollment, FormationImage, ContactMessage
 
 
 def home(request):
+    query = request.GET.get('q') 
+    if query:
+        formations = Formation.objects.filter(
+            Q(title__icontains=query) | 
+            Q(instructor__icontains=query) |
+            Q(department__icontains=query) |
+            Q(place__icontains=query)
+        )
+    else:
+        formations = Formation.objects.filter(status=True)
+
     content = {
-        'formations' : Formation.objects.filter(status=True)
+        'formations': formations,
+        'page': 'home'
     }
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -37,9 +50,20 @@ def home(request):
 
 
 def formations(request):
-    formations = Formation.objects.filter(status=True)
+    query = request.GET.get('q') 
+    if query:
+        formations = Formation.objects.filter(
+            Q(title__icontains=query) | 
+            Q(instructor__icontains=query) |
+            Q(department__icontains=query) |
+            Q(place__icontains=query)
+        )
+    else:
+        formations = Formation.objects.filter(status=True)
+        
     content = {
-        'formations' : formations
+        'formations': formations,
+        'page': 'formations'
     }
     return render(request, 'formations.html', content)
     

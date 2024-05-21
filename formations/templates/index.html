@@ -3,6 +3,15 @@
 {% block content %}
     <!--===== HOME =====-->
     {% include "home.html" %}
+    <!--===== SEARCH =====-->
+    <section class="search" id="search" style="padding: 2rem; background: #203039;">
+        <div class="container">
+            <form method="GET" action="{% url 'home' %}">
+                <input type="text" name="q" placeholder="Rechercher des formations..." value="{{ request.GET.q }}">
+                <button class="button" type="submit">Rechercher</button>
+            </form>
+        </div>
+    </section>
     <!--===== FORMATIONS =====-->
     {% include "formations_section.html" %}
     <!--===== ABOUT =====-->

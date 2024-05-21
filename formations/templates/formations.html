@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block title %}AFIND Formation{% endblock %}
 {% block content %}
+{% load static %}
+    <section class="home section" id="home">
+        <!--===== SEARCH =====-->
+        <section class="search" id="search">
+            <div class="container">
+                <form method="GET" action="{% url 'formations' %}">
+                    <input type="text" name="q" placeholder="Rechercher des formations..." value="{{ request.GET.q }}">
+                    <button class="button" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </section>
+    </section>
     <!--===== FORMATIONS =====-->
     {% include "formations_section.html" %}
 {% endblock %}
