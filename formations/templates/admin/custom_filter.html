@@ -1,0 +1,47 @@
+{% load i18n admin_urls static %}
+{% load i18n admin_urls static %}
+
+<div class="custom-filter">
+    <form method="get">
+        {% for param, value in request.GET.items %}
+            {% if param != parameter_name %}
+                <input type="hidden" name="{{ param }}" value="{{ value }}">
+            {% endif %}
+        {% endfor %}
+        <input type="text" name="{{ parameter_name }}" placeholder="{% trans 'Search Formation Title and Session' %}" value="{% firstof request.GET.parameter_name '' %}">
+        <button type="submit" class="button">{% trans 'Search' %}</button>
+    </form>
+</div>
+    <div class="custom-filter">
+        <form method="get">
+            {% for param, value in request.GET.items %}
+                {% if param != parameter_name %}
+                    <input type="hidden" name="{{ param }}" value="{{ value }}">
+                {% endif %}
+            {% endfor %}
+            <input id="autocomplete" type="text" name="{{ parameter_name }}" placeholder="{% trans 'Search Formation Title and Session' %}" value="{{ request.GET.parameter_name }}">
+            <button type="submit" class="button">{% trans 'Search' %}</button>
+        </form>
+    </div>
+
+
+<style>
+    .custom-filter {
+        margin-bottom: 1rem;
+    }
+    .custom-filter input {
+        margin-right: 0.5rem;
+    }
+    .custom-filter .button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+    .custom-filter .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+    

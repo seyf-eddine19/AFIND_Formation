@@ -1,12 +1,10 @@
 <form method="post" role="form" id="enrollForm">
     {% csrf_token %}
-    <input type="text" id="id_full_name" name="full_name" placeholder="full name" required>
+    <input type="text" id="id_full_name" name="full_name" placeholder="Nom et Prénom" required>
     <input type="email" id="id_email" name="email" placeholder="Email" required>
-    <input type="tel" id="id_phone" name="phone" placeholder="phone">
-    <input type="text" id="id_doctor_specialty"  placeholder="doctor_specialty" name="doctor_specialty">
-    <input type="text" id="id_address"  placeholder="address" name="address">
-    <input type="text" id="id_department" name="department" placeholder="department">
-    <input type="text" id="id_academic_level" name="academic_level" placeholder="academic level">
+    <input type="tel" id="id_phone" name="phone" placeholder="téléphone" required>
+    <input type="text" id="id_specialty" name="specialty"  placeholder="spécialité">
+    <input type="text" id="id_region"  name="region" placeholder="Région">
     <!-- <button class="button  floating-btn" style="float: inline-end;"> S'inscrire </button> -->
 </form>
 

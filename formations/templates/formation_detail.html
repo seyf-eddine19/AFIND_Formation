@@ -39,7 +39,7 @@
                     </div>
                     {% for img in formation_images %}
                         <div class="column">
-                            <img class="demo cursor" src="{{ img.image.url }}" alt="{{ formation.title }}" style="width:100%" onclick="currentSlide({{ forloop.counter|add:1 }})">
+                            <img class="demo cursor" src="{{ img.image.url }}" alt="{{ formation.title }}" style="width:100%" onclick="currentSlide('{{ forloop.counter|add:1 }}')">
                         </div>
                     {% endfor %}
                 </div>
@@ -57,21 +57,21 @@
                 <p class="detail_label">Instructeur :<span class=""> {{ formation.instructor }}</span></p>
                 <p class="detail_label">Département :<span class=""> {{ formation.department }}</span></p>
                 <p class="detail_label">Places restantes :<span class=""> Seulement {{ formation.places_left }} places restantes!</span></p>
-                <p class="detail_label">Lieu :<span class=""> {{ formation.place }}</span> <span  style="float: right;">Deadline :<span class="detail_deadline"> {{ formation.enrollment_deadline }}</span></span></p>
+                <p class="detail_label">Lieu :<span class=""> {{ formation.place }}</span> <span  style="float: right;">Date :<span class="detail_deadline"> {{ formation.date }}</span></span></p>
                 <!--===== ENROLL FORM =====-->
                 {% include "enroll_form.html" %}
             </div>
         </div>
         <br>
         <pre>{{ formation.description }}</pre>
-        {% if formation.map_url %}
+        {% if formation.map_iframe %}
         <div class="map">
-            <iframe src="{{ formation.map_url }}" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            {{ formation.map_iframe|safe }}
         </div>
         {% endif %}
         <!--===== MORE FORMATIONS =====-->
         {% include "formations_section.html" %}
-        <button class="button floating-btn" onclick="submitForm()">s'inscrire</button>
+        <button class="button floating-btn" onclick="submitEnrollForm()">s'inscrire</button>
     </div>
     <script>
         let slideIndex = 1;
@@ -105,15 +105,6 @@
             console.log(i, slideIndex)
             slides[slideIndex-1].style.display = "block";
             dots[slideIndex-1].className += " active";
-        }
-        
-        function submitForm() {
-            var form = document.getElementById("enrollForm");
-            if (form.checkValidity()) {
-                form.submit();
-            } else {
-                form.reportValidity();
-            }
         }
     </script>
 </section>

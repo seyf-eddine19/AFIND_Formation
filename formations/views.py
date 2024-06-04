@@ -1,9 +1,31 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
+from django.conf import settings
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q 
-from .models import Formation, Enrollment, FormationImage, ContactMessage
+from .models import Formation, Enrollment, FormationImage, ContactMessage, SiteContent, SiteSettings
+
+def send_custom_email(subject, message, email):
+    # Fetch settings from the database
+    try:
+        email_settings = SiteSettings.objects.get(setting_name='EMAIL_HOST_USER')
+        email_password_settings = SiteSettings.objects.get(setting_name='EMAIL_HOST_PASSWORD')
+        email_receiver_settings = SiteSettings.objects.get(setting_name='EMAIL_RECEIVER')
+        
+        # Override the settings
+        settings.EMAIL_HOST_USER = email_settings.setting_value
+        settings.EMAIL_HOST_PASSWORD = email_password_settings.setting_value
+        # Send the email
+        send_mail(
+            subject,
+            message,
+            email,
+            [email_receiver_settings.setting_value],
+        )
+    except SiteSettings.DoesNotExist:
+        # Handle case where the settings are not found
+        pass
 
 
 def home(request):
@@ -20,7 +42,6 @@ def home(request):
 
     content = {
         'formations': formations,
-        'page': 'home'
     }
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -37,11 +58,10 @@ def home(request):
         )
         
         # Send email
-        send_mail(
+        send_custom_email(
             subject,
             message,
             email,
-            ['seyfeddine.tlm@gmail.com'],  # Replace with your email
         )
         
         messages.success(request, 'Your message has been sent successfully!')
@@ -63,7 +83,6 @@ def formations(request):
         
     content = {
         'formations': formations,
-        'page': 'formations'
     }
     return render(request, 'formations.html', content)
     
@@ -82,10 +101,9 @@ def formation_detail(request, pk):
         full_name = request.POST.get('full_name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
-        doctor_specialty = request.POST.get('doctor_specialty')
-        address = request.POST.get('address')
-        department = request.POST.get('department')
-        academic_level = request.POST.get('academic_level')
+        region = request.POST.get('region')
+        specialty = request.POST.get('specialty')
+        
         enrollment_date = timezone.now()
         
         # Check if the user is already enrolled
@@ -98,14 +116,24 @@ def formation_detail(request, pk):
                 full_name=full_name,
                 email=email,
                 phone=phone,
-                doctor_specialty=doctor_specialty,
-                address=address,
-                department=department,
-                academic_level=academic_level,
+                region=region,
+                specialty=specialty,
+                source = 'Website',
                 enrollment_date=enrollment_date
             )
-            formation.places_left -= 1
-            formation.save()
+            # formation.places_left -= 1
+            # formation.save()
+            try:
+                # Send email
+                send_custom_email(
+                    f'{full_name} enrolled in {formation.title} formation',
+                    f'{full_name} enrolled in {formation.title} formation by {email}',
+                    email,
+                )
+                messages.success(request, 'successfully!')
+            except:
+                messages.error(request, 'successfully!')
+                
             messages.success(request, 'Your form has been submitted successfully!')
             # return redirect('/')
     return render(request, 'formation_detail.html', content)
@@ -133,12 +161,12 @@ def contact(request):
         )
         
         # Send email
-        # send_mail(
-        #     subject,
-        #     message,
-        #     email,
-        #     ['seyfeddine.tlm@gmail.com'],  # Replace with your email
-        # )
+        send_mail(
+            subject,
+            message,
+            email,
+            ['seyfeddine.tlm@gmail.com'],  # Replace with your email
+        )
         
         messages.success(request, 'Your message has been sent successfully!')
         return redirect('contact')
@@ -147,17 +175,23 @@ def contact(request):
 
 
 def faq(request):
-    content = {}
+    # faqs = SiteContent.objects.filter(type='faq')
+    content = {
+        'faq': get_object_or_404(SiteContent, type='faq')
+    }
     return render(request, 'faq.html', content)
     
 
 def privacy_policy(request):
-    content = {}
+    content = {
+        'policy': get_object_or_404(SiteContent, type='privacy_policy')
+    }
     return render(request, 'politique-de-confidentialite.html', content)
     
 
 def terms_of_service(request):
-    content = {}
+    content = {
+        'terms': get_object_or_404(SiteContent, type='terms_of_service')
+    }
     return render(request, 'conditions-generales-d-utilisation.html', content)
     
-

@@ -526,7 +526,7 @@ form#enrollForm {
   border: 1px solid #C1C1C1;
   border-radius: 5px;
 }
-#enrollForm input#id_address {
+#enrollForm input#id_region {
   width: 100%;
 }
 .search form {
@@ -666,8 +666,7 @@ footer ul.footer_ul li a {
     margin: 0px auto;
   }  
   .nav_menu {
-    height: 100%;
-    width: 70%;
+    width: 100%;
     padding: var(--mb-2);
     margin-top: 4rem;
     display: none;
@@ -682,9 +681,6 @@ footer ul.footer_ul li a {
   }
   .nav_list {
     padding-top: var(--mb-1);
-  }
-  .nav_link {
-    width: min-content;
   }
   .nav_item {
     display: block;

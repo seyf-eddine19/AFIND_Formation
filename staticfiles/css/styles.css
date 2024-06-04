@@ -252,7 +252,7 @@ img, video{
 .home {
   position: relative;
   margin-top: var(--nav-height);
-  margin-bottom: var(--mb-4);
+  margin-bottom: 0;
   overflow: hidden;
   background-image: url("../img/bg-img-1.jpg");
   background-size: cover;
@@ -529,6 +529,21 @@ form#enrollForm {
 #enrollForm input#id_address {
   width: 100%;
 }
+.search form {
+  display: flex;
+  align-items: stretch;
+  align-content: space-between;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+.search input {
+  min-width: 200px;
+  margin: 0;
+}
+.search .button {
+  margin: 0;
+}
 /*===== CONTACT =====*/
 .contact .container {
   display: flex;
@@ -719,5 +734,8 @@ footer ul.footer_ul li a {
 @media(max-width:580px){
   .formations article {
     max-width: 100%;
+  }
+  .search form {
+    flex-wrap: wrap;
   }
 }

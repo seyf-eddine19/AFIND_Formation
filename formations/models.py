@@ -3,22 +3,25 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 
-# Formation model
 class Formation(models.Model):
     title = models.CharField(max_length=200)
+    session = models.CharField(max_length=200, null=True)
     description = models.TextField()
     image = models.ImageField(upload_to='formations/images/')
-    price = models.DecimalField(max_digits=15, decimal_places=2)
-    duration = models.CharField(max_length=100)
-    instructor = models.CharField(max_length=560, null=True)
-    department = models.CharField(max_length=255)
-    place = models.CharField(max_length=255, default='')
+    price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
     discount = models.IntegerField(default=0, null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], help_text="Enter a discount percentage between 0 and 100")
+    date = models.DateField(default=timezone.now, null=True)
+    duration = models.CharField(max_length=100, null=True)
+    instructor = models.CharField(max_length=560, default=0, blank=True)
+    department = models.CharField(max_length=255)
     places_left = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    place = models.CharField(max_length=255, default='')
+    map_iframe = models.TextField(max_length=800, blank=True, null=True, help_text="iframe of the location on the map")
     status = models.BooleanField(default=True)
-    enrollment_deadline = models.DateField(default=timezone.now(), null=True)
-    map_url = models.URLField(max_length=200, blank=True, null=True, help_text="URL of the location on the map")
     
+    class Meta:
+        unique_together = [['title', 'session']]
+
     @property
     def discounted_price(self):
         return self.price - (self.price * self.discount / 100)
@@ -27,7 +30,6 @@ class Formation(models.Model):
         return self.title
 
 
-# Formation Image model
 class FormationImage(models.Model):
     formation = models.ForeignKey(Formation, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='formations/images/formation_%Y/')
@@ -35,25 +37,27 @@ class FormationImage(models.Model):
         return f"Image for {self.formation.title}"
 
 
-# Enrollments model
 class Enrollment(models.Model):
     # enrollment_id = models.AutoField(primary_key=True)
     formation = models.ForeignKey(Formation, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     phone = models.CharField(max_length=20, blank=True, null=True)  
-    address = models.TextField(blank=True, null=True) 
-    department = models.CharField(max_length=255, null=True)
-    academic_level = models.CharField(max_length=100, null=True)
-    doctor_specialty = models.CharField(max_length=255, default='', null=True)
-    status = models.CharField(max_length=255, default='Pending', choices=[('Pending', 'Pending'), ('Paid', 'Paid'), ('Cancelled', 'Cancelled')])  # Updated field
-    enrollment_date = models.DateField(default=timezone.now(), null=True)
+    region = models.TextField(blank=True, null=True) 
+    specialty = models.CharField(max_length=255, default='', null=True)
+    source = models.CharField(max_length=255, default='Manual', choices=[('Manual', 'Manual'), ('Facebook', 'Facebook'), ('Website', 'Website')], editable=False)
+    status = models.CharField(max_length=255, default='Pending', choices=[('Pending', 'Pending'), ('Paid', 'Paid'), ('Cancelled', 'Cancelled')])
+    enrollment_date = models.DateField(default=timezone.now, null=True)
 
     class Meta:
         unique_together = [['formation', 'email']]
 
+    @property
+    def formation_title_session(self):
+        return f"{self.formation.title} | {self.formation.session}"
+    
     def __str__(self):
-        return f"{self.full_name} - {self.academic_level}"
+        return f"{self.full_name}"
     
 
 class ContactMessage(models.Model):
@@ -65,3 +69,26 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.full_name} - {self.email}"
+
+
+class SiteContent(models.Model):
+    CONTENT_TYPE_CHOICES = [
+        ('privacy_policy', 'Privacy Policy'),
+        ('terms_of_service', 'Terms of Service'),
+        ('faq', 'FAQ'),
+    ]
+
+    type = models.CharField(max_length=20, choices=CONTENT_TYPE_CHOICES, unique=True)
+    title = models.CharField(max_length=200)
+    content = models.TextField(help_text="Content of the site section")
+
+    def __str__(self):
+        return self.get_type_display()
+
+
+class SiteSettings(models.Model):
+    setting_name = models.CharField(max_length=100, blank=True)
+    setting_value = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.setting_name

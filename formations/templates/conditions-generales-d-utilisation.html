@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% block title %}AFIND Formation{% endblock %}
+{% block title %}AFIND Formation | {{ terms.title }}{% endblock %}
 {% block content %}
 <section class="formations section" id="formations">
-    <h2 class="section-title">conditions generales d'utilisation</h2>
+    <h2 class="section-title">{{ terms.title }}</h2>
     <div class="container">
+        {{ terms.content|safe }}
     </div>
 </section>
 {% endblock %}
