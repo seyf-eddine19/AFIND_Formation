@@ -12,7 +12,7 @@ class Formation(models.Model):
     discount = models.IntegerField(default=0, null=True, validators=[MinValueValidator(0), MaxValueValidator(100)], help_text="Enter a discount percentage between 0 and 100")
     date = models.DateField(default=timezone.now, null=True)
     duration = models.CharField(max_length=100, null=True)
-    instructor = models.CharField(max_length=560, default=0, blank=True)
+    instructor = models.CharField(max_length=560, default='', blank=True)
     department = models.CharField(max_length=255)
     places_left = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     place = models.CharField(max_length=255, default='')
@@ -42,7 +42,7 @@ class Enrollment(models.Model):
     formation = models.ForeignKey(Formation, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
-    phone = models.CharField(max_length=20, blank=True, null=True)  
+    phone = models.CharField(max_length=20, null=True, default='')  
     region = models.TextField(blank=True, null=True) 
     specialty = models.CharField(max_length=255, default='', null=True)
     source = models.CharField(max_length=255, default='Manual', choices=[('Manual', 'Manual'), ('Facebook', 'Facebook'), ('Website', 'Website')], editable=False)
@@ -50,7 +50,7 @@ class Enrollment(models.Model):
     enrollment_date = models.DateField(default=timezone.now, null=True)
 
     class Meta:
-        unique_together = [['formation', 'email']]
+        unique_together = [['formation', 'phone']]
 
     @property
     def formation_title_session(self):
@@ -87,7 +87,12 @@ class SiteContent(models.Model):
 
 
 class SiteSettings(models.Model):
-    setting_name = models.CharField(max_length=100, blank=True)
+    SETTING_NAME_CHOICES = [
+        ('EMAIL_RECEIVER', 'EMAIL RECEIVER'),
+        ('EMAIL_HOST_PASSWORD', 'EMAIL HOST PASSWORD'),
+        ('EMAIL_HOST_USER', 'EMAIL HOST USER'),
+    ]
+    setting_name = models.CharField(max_length=100, choices=SETTING_NAME_CHOICES, unique=True)
     setting_value = models.TextField(blank=True)
 
     def __str__(self):

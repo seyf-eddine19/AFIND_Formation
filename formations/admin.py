@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 from .models import Formation, Enrollment, FormationImage, ContactMessage, SiteContent, SiteSettings, SiteSettings
 from django.urls import path
 from .admin_actions import export_as_csv, import_from_csv
@@ -7,6 +8,8 @@ from .admin_actions import export_as_csv, import_from_csv
 admin.site.site_header = 'AFIND Frormation'   # default: "Django Administration"
 admin.site.index_title = 'Administration'   # default: "Site administration"
 admin.site.site_title = 'Administration'               # default: "Django site admin"
+Group._meta.verbose_name = 'Permissions Group'
+Group._meta.verbose_name_plural = 'Permissions Groups'
 
 
 class FormationImageInline(admin.TabularInline):
@@ -57,6 +60,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'subject', 'created_at')
 
 
+@admin.register(SiteContent)
 class SiteContentAdmin(admin.ModelAdmin):
     list_display = ('type', 'title', 'content')
 
@@ -67,8 +71,6 @@ class SiteContentAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
-    
-admin.site.register(SiteContent, SiteContentAdmin)
 
 
 @admin.register(SiteSettings)
@@ -77,3 +79,11 @@ class SiteSettingsAdmin(admin.ModelAdmin):
 
     def has_change_permission(self, request, obj=None):
         return request.user.is_superuser
+    
+    def has_add_permission(self, request):
+        if SiteContent.objects.count() >= len(SiteContent.CONTENT_TYPE_CHOICES):
+            return False
+        return super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False

@@ -107,7 +107,7 @@ def formation_detail(request, pk):
         enrollment_date = timezone.now()
         
         # Check if the user is already enrolled
-        if Enrollment.objects.filter(formation_id=formation_id, email=email).exists():
+        if Enrollment.objects.filter(formation_id=formation_id, phone=phone).exists():
             messages.error(request, 'You are already enrolled in this formation.')
         else:
             # Save the enrollment data to the database
@@ -130,9 +130,8 @@ def formation_detail(request, pk):
                     f'{full_name} enrolled in {formation.title} formation by {email}',
                     email,
                 )
-                messages.success(request, 'successfully!')
             except:
-                messages.error(request, 'successfully!')
+                pass
                 
             messages.success(request, 'Your form has been submitted successfully!')
             # return redirect('/')
