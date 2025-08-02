@@ -139,13 +139,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'sifou.edd@gmail.com'  # Replace with your email
-EMAIL_HOST_PASSWORD = 'mucf aoep ktoc bxpc'  # Replace with your email password
-# https://myaccount.google.com/signinoptions/twosv
-# https://myaccount.google.com/apppasswords
-# mot de passe d'application: python_afind
